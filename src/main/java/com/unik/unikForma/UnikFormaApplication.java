@@ -14,7 +14,6 @@ public class UnikFormaApplication {
 		// Start the Spring application
 		SpringApplication.run(UnikFormaApplication.class, args);
 
-		// Log a test message
-		logger.info("Test logger");
+		logger.info("Application has started successfully.");
 	}
 }

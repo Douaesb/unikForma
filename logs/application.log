@@ -25,3 +25,69 @@
 2024-10-28 14:48:56 - Tomcat started on port(s): 8080 (http) with context path ''
 2024-10-28 14:48:56 - Started UnikFormaApplication in 3.816 seconds (JVM running for 4.737)
 2024-10-28 14:48:56 - Test logger
+2024-10-28 14:57:10 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-10-28 14:57:10 - HHH000477: Starting delayed evictData of schema as part of SessionFactory shut-down'
+2024-10-28 14:57:11 - Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-214]
+2024-10-28 14:57:11 - HikariPool-1 - Shutdown initiated...
+2024-10-28 14:57:11 - HikariPool-1 - Shutdown completed.
+2024-10-28 16:09:34 - Starting UnikFormaApplication using Java 22.0.2 on DESKTOP-KCR8P9P with PID 328 (C:\Users\douae\IdeaProjects\unikForma\target\classes started by douae in C:\Users\douae\IdeaProjects\unikForma)
+2024-10-28 16:09:34 - The following 1 profile is active: "development"
+2024-10-28 16:09:34 - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-10-28 16:09:34 - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-10-28 16:09:34 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-10-28 16:09:34 - Finished Spring Data repository scanning in 4 ms. Found 0 JPA repository interfaces.
+2024-10-28 16:09:35 - Tomcat initialized with port(s): 8080 (http)
+2024-10-28 16:09:35 - Initializing ProtocolHandler ["http-nio-8080"]
+2024-10-28 16:09:35 - Starting service [Tomcat]
+2024-10-28 16:09:35 - Starting Servlet engine: [Apache Tomcat/9.0.83]
+2024-10-28 16:09:35 - Initializing Spring embedded WebApplicationContext
+2024-10-28 16:09:35 - Root WebApplicationContext: initialization completed in 1106 ms
+2024-10-28 16:09:35 - HikariPool-1 - Starting...
+2024-10-28 16:09:35 - HikariPool-1 - Start completed.
+2024-10-28 16:09:35 - H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:devdb'
+2024-10-28 16:09:35 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-10-28 16:09:35 - HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-10-28 16:09:36 - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-10-28 16:09:36 - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2024-10-28 16:09:36 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-10-28 16:09:36 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-10-28 16:09:36 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-10-28 16:09:37 - LiveReload server is running on port 35729
+2024-10-28 16:09:37 - Starting ProtocolHandler ["http-nio-8080"]
+2024-10-28 16:09:37 - Tomcat started on port(s): 8080 (http) with context path ''
+2024-10-28 16:09:37 - Started UnikFormaApplication in 3.108 seconds (JVM running for 3.843)
+2024-10-28 16:09:37 - Application has started successfully.
+2024-10-28 16:10:50 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-10-28 16:10:50 - Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-214]
+2024-10-28 16:10:50 - HikariPool-1 - Shutdown initiated...
+2024-10-28 16:10:50 - HikariPool-1 - Shutdown completed.
+2024-10-28 16:10:53 - Starting UnikFormaApplication using Java 22.0.2 on DESKTOP-KCR8P9P with PID 22452 (C:\Users\douae\IdeaProjects\unikForma\target\classes started by douae in C:\Users\douae\IdeaProjects\unikForma)
+2024-10-28 16:10:53 - The following 1 profile is active: "production"
+2024-10-28 16:10:53 - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-10-28 16:10:53 - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-10-28 16:10:53 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-10-28 16:10:53 - Finished Spring Data repository scanning in 4 ms. Found 0 JPA repository interfaces.
+2024-10-28 16:10:54 - Tomcat initialized with port(s): 8080 (http)
+2024-10-28 16:10:54 - Initializing ProtocolHandler ["http-nio-8080"]
+2024-10-28 16:10:54 - Starting service [Tomcat]
+2024-10-28 16:10:54 - Starting Servlet engine: [Apache Tomcat/9.0.83]
+2024-10-28 16:10:54 - Initializing Spring embedded WebApplicationContext
+2024-10-28 16:10:54 - Root WebApplicationContext: initialization completed in 1053 ms
+2024-10-28 16:10:54 - HikariPool-1 - Starting...
+2024-10-28 16:10:54 - HikariPool-1 - Start completed.
+2024-10-28 16:10:54 - H2 console available at '/h2-console'. Database available at 'jdbc:postgresql://localhost:5432/unikforma'
+2024-10-28 16:10:54 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-10-28 16:10:54 - HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-10-28 16:10:55 - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-10-28 16:10:55 - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-10-28 16:10:55 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-10-28 16:10:55 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-10-28 16:10:55 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-10-28 16:10:56 - LiveReload server is running on port 35729
+2024-10-28 16:10:56 - Starting ProtocolHandler ["http-nio-8080"]
+2024-10-28 16:10:56 - Tomcat started on port(s): 8080 (http) with context path ''
+2024-10-28 16:10:56 - Started UnikFormaApplication in 3.078 seconds (JVM running for 3.776)
+2024-10-28 16:10:56 - Application has started successfully.
+2024-10-28 16:12:00 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-10-28 16:12:00 - HikariPool-1 - Shutdown initiated...
+2024-10-28 16:12:00 - HikariPool-1 - Shutdown completed.
