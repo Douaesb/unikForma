@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Optional;
+import java.util.List;
 
 @RestController
 @RequestMapping("/classes")
@@ -56,5 +56,11 @@ public class ClasseController {
             @PathVariable Long id, @Valid @RequestBody ClasseDTO updatedClasseDTO) {
         ClasseDTO updatedClasse = classeService.updateClasse(id, updatedClasseDTO);
         return ResponseEntity.ok(updatedClasse);
+    }
+
+    @GetMapping("/search/name")
+    public ResponseEntity<List<ClasseDTO>> getClassesByName(@RequestParam String name) {
+        List<ClasseDTO> classes = classeService.getClassesByName(name);
+        return ResponseEntity.ok(classes);
     }
 }

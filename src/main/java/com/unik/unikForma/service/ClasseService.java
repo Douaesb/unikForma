@@ -2,8 +2,7 @@ package com.unik.unikForma.service;
 
 import com.unik.unikForma.dto.ClasseDTO;
 import com.unik.unikForma.entity.Classe;
-import com.unik.unikForma.exception.CourseNotFoundException;
-import com.unik.unikForma.mapper.ClasseMapper; // Import the ClasseMapper
+import com.unik.unikForma.mapper.ClasseMapper;
 import com.unik.unikForma.repository.ClasseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ClasseService {
@@ -53,4 +53,9 @@ public class ClasseService {
         return classeMapper.toDTO(updatedClasse);
     }
 
+    public List<ClasseDTO> getClassesByName(String name) {
+        return classeRepository.findByName(name).stream()
+                .map(classeMapper::toDTO)
+                .collect(Collectors.toList());
+    }
 }
