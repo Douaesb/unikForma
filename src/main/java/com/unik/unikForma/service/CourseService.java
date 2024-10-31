@@ -51,12 +51,13 @@ public class CourseService {
     }
 
     public CourseDTO updateCourse(Long id, CourseDTO updatedCourseDTO) {
-        return courseRepository.findById(id).map(course -> {
-            courseMapper.updateEntityFromDTO(updatedCourseDTO, course);
-            Course updatedCourse = courseRepository.save(course);
-            return courseMapper.toDTO(updatedCourse);
-        }).orElseThrow(() -> new CourseNotFoundException(id));
+        Course existingCourse = courseRepository.findById(id)
+                .orElseThrow(() -> new CourseNotFoundException(id));
+        courseMapper.updateEntityFromDTO(updatedCourseDTO, existingCourse);
+        Course updatedCourse = courseRepository.save(existingCourse);
+        return courseMapper.toDTO(updatedCourse);
     }
+
 
     public List<CourseDTO> getCoursesByTitle(String title) {
         return courseRepository.findByTitle(title).stream()

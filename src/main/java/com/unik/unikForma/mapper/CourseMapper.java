@@ -5,18 +5,20 @@ import com.unik.unikForma.entity.Course;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Component;
 
 @Mapper(componentModel = "spring")
 @Component
 public interface CourseMapper {
+    CourseMapper INSTANCE = Mappers.getMapper(CourseMapper.class);
     Course toEntity(CourseDTO courseDTO);
 
     CourseDTO toDTO(Course course);
 
 
-    @Mapping(target = "id", source = "dto.id")
 
+    @Mapping(target = "id", ignore = true)
     void updateEntityFromDTO(CourseDTO dto, @MappingTarget Course entity);
 
 }
