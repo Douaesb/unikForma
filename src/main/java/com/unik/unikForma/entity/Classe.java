@@ -32,8 +32,7 @@ public class Classe {
     @OneToMany(mappedBy = "classe", cascade = CascadeType.ALL)
     private Set<Learner> learners = new HashSet<>();
 
-    @OneToOne
-    @JoinColumn(name = "instructor_id")
+    @OneToOne(mappedBy = "classe", cascade = CascadeType.ALL)
     private Instructor instructor;
 
 }

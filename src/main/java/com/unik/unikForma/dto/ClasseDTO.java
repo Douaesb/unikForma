@@ -24,5 +24,4 @@ public class ClasseDTO {
     @Max(value = 999, message = "Room number cannot exceed 999")
     private int roomNum;
 
-//    private InstructorDTO instructor;
 }

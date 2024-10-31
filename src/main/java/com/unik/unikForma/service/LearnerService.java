@@ -1,5 +1,6 @@
 package com.unik.unikForma.service;
 
+import com.unik.unikForma.dto.LearnerDTO;
 import com.unik.unikForma.entity.Learner;
 import com.unik.unikForma.exception.LearnerNotFoundException;
 import com.unik.unikForma.repository.LearnerRepository;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class LearnerService {
@@ -19,16 +21,27 @@ public class LearnerService {
         this.learnerRepository = learnerRepository;
     }
 
-    public Learner saveLearner(Learner learner) {
-        return learnerRepository.save(learner);
+    public LearnerDTO saveLearner(LearnerDTO learnerDTO) {
+        Learner learner = new Learner();
+        // Map properties from DTO to Entity
+        learner.setFirstName(learnerDTO.getFirstName());
+        learner.setLastName(learnerDTO.getLastName());
+        learner.setEmail(learnerDTO.getEmail());
+        learner.setLevel(learnerDTO.getLevel());
+        // Save and return the created LearnerDTO
+        Learner savedLearner = learnerRepository.save(learner);
+        return mapToDTO(savedLearner);
     }
 
-    public List<Learner> getAllLearners() {
-        return learnerRepository.findAll();
+    public List<LearnerDTO> getAllLearners() {
+        return learnerRepository.findAll().stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
     }
 
-    public Optional<Learner> getLearnerById(Long id) {
-        return learnerRepository.findById(id);
+    public Optional<LearnerDTO> getLearnerById(Long id) {
+        return learnerRepository.findById(id)
+                .map(this::mapToDTO);
     }
 
     public void deleteLearner(Long id) {
@@ -36,5 +49,15 @@ public class LearnerService {
             throw new LearnerNotFoundException(id);
         }
         learnerRepository.deleteById(id);
+    }
+
+    private LearnerDTO mapToDTO(Learner learner) {
+        LearnerDTO dto = new LearnerDTO();
+        dto.setId(learner.getId());
+        dto.setFirstName(learner.getFirstName());
+        dto.setLastName(learner.getLastName());
+        dto.setEmail(learner.getEmail());
+        dto.setLevel(learner.getLevel());
+        return dto;
     }
 }

@@ -14,7 +14,7 @@ public class Instructor extends User {
     @NotBlank(message = "Speciality is required")
     private String speciality;
 
-    @OneToOne(mappedBy = "instructor")
+    @OneToOne
     @JoinColumn(name = "classe_id")
     private Classe classe;
 }
