@@ -48,10 +48,28 @@ public class CourseController {
         return ResponseEntity.noContent().build();
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<CourseDTO> update(
-//            @PathVariable Long id, @Valid @RequestBody CourseDTO updatedCourseDTO) {
-//        CourseDTO updatedCourse = courseService.updateCourse(id, updatedCourseDTO);
-//        return ResponseEntity.ok(updatedCourse);
-//    }
+    @PutMapping("/{id}")
+    public ResponseEntity<CourseDTO> updateCourse(
+            @PathVariable Long id, @Valid @RequestBody CourseDTO updatedCourseDTO) {
+        CourseDTO updatedCourse = courseService.updateCourse(id, updatedCourseDTO);
+        return ResponseEntity.ok(updatedCourse);
+    }
+
+    @GetMapping("/search/title")
+    public ResponseEntity<List<CourseDTO>> getCoursesByTitle(@RequestParam String title) {
+        List<CourseDTO> courses = courseService.getCoursesByTitle(title);
+        return ResponseEntity.ok(courses);
+    }
+
+    @GetMapping("/search/status")
+    public ResponseEntity<List<CourseDTO>> getCoursesByStatus(@RequestParam String status) {
+        List<CourseDTO> courses = courseService.getCoursesByStatus(status);
+        return ResponseEntity.ok(courses);
+    }
+
+    @GetMapping("/search/titleAndLevel")
+    public ResponseEntity<List<CourseDTO>> getCoursesByTitleAndLevel(@RequestParam String title, @RequestParam String level) {
+        List<CourseDTO> courses = courseService.getCoursesByTitleAndLevel(title, level);
+        return ResponseEntity.ok(courses);
+    }
 }

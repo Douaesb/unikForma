@@ -2,6 +2,7 @@ package com.unik.unikForma.service;
 
 import com.unik.unikForma.dto.CourseDTO;
 import com.unik.unikForma.entity.Course;
+import com.unik.unikForma.entity.CourseStatus;
 import com.unik.unikForma.exception.CourseNotFoundException;
 import com.unik.unikForma.mapper.CourseMapper; // Import the CourseMapper
 import com.unik.unikForma.repository.CourseRepository;
@@ -49,13 +50,31 @@ public class CourseService {
         courseRepository.deleteById(id);
     }
 
-    // Update Course from DTO
-//    public CourseDTO updateCourse(Long id, CourseDTO updatedCourseDTO) {
-//        return courseRepository.findById(id).map(course -> {
-//            // Use the mapper to update the existing course with values from the DTO
-//            courseMapper.updateEntityFromDTO(updatedCourseDTO, course); // Assuming you have an update method
-//            Course updatedCourse = courseRepository.save(course);
-//            return courseMapper.toDTO(updatedCourse); // Use mapper to convert Entity to DTO
-//        }).orElseThrow(() -> new CourseNotFoundException(id));
-//    }
+    public CourseDTO updateCourse(Long id, CourseDTO updatedCourseDTO) {
+        return courseRepository.findById(id).map(course -> {
+            courseMapper.updateEntityFromDTO(updatedCourseDTO, course);
+            Course updatedCourse = courseRepository.save(course);
+            return courseMapper.toDTO(updatedCourse);
+        }).orElseThrow(() -> new CourseNotFoundException(id));
+    }
+
+    public List<CourseDTO> getCoursesByTitle(String title) {
+        return courseRepository.findByTitle(title).stream()
+                .map(courseMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<CourseDTO> getCoursesByStatus(String status) {
+        CourseStatus courseStatus = CourseStatus.valueOf(status);
+        return courseRepository.findByStatus(courseStatus)
+                .stream()
+                .map(courseMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<CourseDTO> getCoursesByTitleAndLevel(String title, String level) {
+        return courseRepository.findByTitleAndLevel(title, level).stream()
+                .map(courseMapper::toDTO)
+                .collect(Collectors.toList());
+    }
 }
