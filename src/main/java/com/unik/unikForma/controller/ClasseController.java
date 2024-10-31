@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -42,20 +43,18 @@ public class ClasseController {
         return ResponseEntity.ok(dtos);
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<ClasseDTO> update(
-//            @PathVariable Long id, @RequestBody ClasseDTO updatedDTO) {
-//        try {
-//            ClasseDTO updated = classeService.update(id, updatedDTO);
-//            return ResponseEntity.ok(updated);
-//        } catch (ClasseNotFoundException ex) {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         classeService.deleteClasse(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ClasseDTO> updateClasse(
+            @PathVariable Long id, @Valid @RequestBody ClasseDTO updatedClasseDTO) {
+        ClasseDTO updatedClasse = classeService.updateClasse(id, updatedClasseDTO);
+        return ResponseEntity.ok(updatedClasse);
     }
 }

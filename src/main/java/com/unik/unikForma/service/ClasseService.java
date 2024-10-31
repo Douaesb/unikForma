@@ -45,13 +45,12 @@ public class ClasseService {
         classeRepository.deleteById(id);
     }
 
+    public ClasseDTO updateClasse(Long id, ClasseDTO updatedClasseDTO) {
+        Classe existingClasse = classeRepository.findById(id).orElse(null);
 
-//    public Optional<ClasseDTO> update(Long id, ClasseDTO updatedClasseDTO) {
-//        return classeRepository.findById(id).map(existingClasse -> {
-//            // Use the mapper to update the existing class with values from the DTO
-//            classeMapper.updateEntityFromDTO(updatedClasseDTO, existingClasse); // Assuming you have an update method
-//            Classe updatedClasse = classeRepository.save(existingClasse);
-//            return classeMapper.toDTO(updatedClasse); // Use mapper to convert updated entity to DTO
-//        });
-//    }
+        classeMapper.updateEntityFromDTO(updatedClasseDTO, existingClasse);
+        Classe updatedClasse = classeRepository.save(existingClasse);
+        return classeMapper.toDTO(updatedClasse);
+    }
+
 }
