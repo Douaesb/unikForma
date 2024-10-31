@@ -42,4 +42,18 @@ public class CourseService {
 //    public Page<Course> findAllCourses(Pageable pageable) {
 //        return courseRepository.findAll(pageable);
 //    }
+
+    public Optional<Course> updateCourse(Long id, Course updatedCourse) {
+        return Optional.ofNullable(courseRepository.findById(id).map(course -> {
+            course.setTitle(updatedCourse.getTitle());
+            course.setLevel(updatedCourse.getLevel());
+            course.setPrerequisites(updatedCourse.getPrerequisites());
+            course.setMinCapacity(updatedCourse.getMinCapacity());
+            course.setMaxCapacity(updatedCourse.getMaxCapacity());
+            course.setStartDate(updatedCourse.getStartDate());
+            course.setEndDate(updatedCourse.getEndDate());
+            course.setStatus(updatedCourse.getStatus());
+            return courseRepository.save(course);
+        }).orElseThrow(() -> new CourseNotFoundException(id)));
+    }
 }

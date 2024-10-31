@@ -57,5 +57,12 @@ public class CourseController {
 //        return courseService.findAllCourses(pageable);
 //    }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Course> update(
+            @PathVariable Long id, @RequestBody Course updatedEntity) {
+        Optional<Course> updated = courseService.updateCourse(id, updatedEntity);
+        return updated.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
 
 }
