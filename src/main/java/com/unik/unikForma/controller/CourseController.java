@@ -1,12 +1,9 @@
 package com.unik.unikForma.controller;
 
-import com.unik.unikForma.entity.Course;
+import com.unik.unikForma.dto.CourseDTO; // Import the CourseDTO
 import com.unik.unikForma.service.CourseService;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,23 +21,25 @@ public class CourseController {
         this.courseService = courseService;
     }
 
+    // Adjusted to use CourseDTO
     @PostMapping
-    public ResponseEntity<Course> createCourse(@Valid @RequestBody Course course) {
-        Course savedCourse = courseService.saveCourse(course);
+    public ResponseEntity<CourseDTO> createCourse(@Valid @RequestBody CourseDTO courseDTO) {
+        CourseDTO savedCourse = courseService.saveCourse(courseDTO);
         return ResponseEntity.ok(savedCourse);
     }
 
+    // Adjusted to return List of CourseDTO
     @GetMapping
-    public ResponseEntity<List<Course>> getAllCourses() {
-        List<Course> courses = courseService.getAllCourses();
+    public ResponseEntity<List<CourseDTO>> getAllCourses() {
+        List<CourseDTO> courses = courseService.getAllCourses();
         return ResponseEntity.ok(courses);
     }
 
+    // Adjusted to return CourseDTO
     @GetMapping("/{id}")
-    public ResponseEntity<Course> getCourseById(@PathVariable Long id) {
-        Optional<Course> course = courseService.getCourseById(id);
-        return course.map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<CourseDTO> getCourseById(@PathVariable Long id) {
+        CourseDTO course = courseService.getCourseById(id);
+        return ResponseEntity.ok(course);
     }
 
     @DeleteMapping("/{id}")
@@ -49,20 +48,10 @@ public class CourseController {
         return ResponseEntity.noContent().build();
     }
 
-//    @GetMapping
-//    public Page<Course> getAllCourses(
-//            @RequestParam(defaultValue = "0") int page,
-//            @RequestParam(defaultValue = "10") int size) {
-//        Pageable pageable = PageRequest.of(page, size);
-//        return courseService.findAllCourses(pageable);
-//    }
-
     @PutMapping("/{id}")
-    public ResponseEntity<Course> update(
-            @PathVariable Long id, @RequestBody Course updatedEntity) {
-        Optional<Course> updated = courseService.updateCourse(id, updatedEntity);
-        return updated.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<CourseDTO> update(
+            @PathVariable Long id, @Valid @RequestBody CourseDTO updatedCourseDTO) {
+        CourseDTO updatedCourse = courseService.updateCourse(id, updatedCourseDTO);
+        return ResponseEntity.ok(updatedCourse);
     }
-
 }
