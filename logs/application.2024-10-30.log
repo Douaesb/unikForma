@@ -1,0 +1,5 @@
+2024-10-30 09:02:54 - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1d15h35m24s97ms230µs200ns).
+2024-10-30 09:59:21 - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=11m20s328ms983µs800ns).
+2024-10-30 10:02:46 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-10-30 10:02:46 - HikariPool-1 - Shutdown initiated...
+2024-10-30 10:02:46 - HikariPool-1 - Shutdown completed.
