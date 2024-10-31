@@ -1,10 +1,9 @@
 package com.unik.unikForma.service;
 
-import com.unik.unikForma.dto.InstructorDTO;
 import com.unik.unikForma.dto.LearnerDTO;
 import com.unik.unikForma.entity.Learner;
 import com.unik.unikForma.exception.LearnerNotFoundException;
-import com.unik.unikForma.mapper.LearnerMapper; // Import the LearnerMapper
+import com.unik.unikForma.mapper.LearnerMapper;
 import com.unik.unikForma.repository.LearnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,5 +47,13 @@ public class LearnerService {
             throw new LearnerNotFoundException(id);
         }
         learnerRepository.deleteById(id);
+    }
+
+    public LearnerDTO updateLearner(Long id, LearnerDTO updatedLearnerDTO) {
+        Learner existingLearner = learnerRepository.findById(id)
+                .orElseThrow(() -> new LearnerNotFoundException(id));
+        learnerMapper.updateEntityFromDTO(updatedLearnerDTO, existingLearner);
+        Learner updatedLearner = learnerRepository.save(existingLearner);
+        return learnerMapper.toDTO(updatedLearner);
     }
 }

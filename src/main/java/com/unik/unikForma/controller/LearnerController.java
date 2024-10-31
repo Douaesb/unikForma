@@ -1,13 +1,13 @@
 package com.unik.unikForma.controller;
 
-import com.unik.unikForma.dto.InstructorDTO;
 import com.unik.unikForma.dto.LearnerDTO;
-import com.unik.unikForma.exception.LearnerNotFoundException; // Ensure this is imported if needed
+import com.unik.unikForma.exception.LearnerNotFoundException;
 import com.unik.unikForma.service.LearnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -49,5 +49,12 @@ public class LearnerController {
         } catch (LearnerNotFoundException ex) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<LearnerDTO> updateLearner(
+            @PathVariable Long id, @Valid @RequestBody LearnerDTO updatedLearnerDTO) {
+        LearnerDTO updatedLearner = learnerService.updateLearner(id, updatedLearnerDTO);
+        return ResponseEntity.ok(updatedLearner);
     }
 }
