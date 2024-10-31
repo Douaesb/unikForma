@@ -29,8 +29,8 @@ public class ClasseController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ClasseDTO> getById(@PathVariable Long id) {
-        Optional<ClasseDTO> dto = classeService.getClasseById(id);
-        return dto.map(ResponseEntity::ok)
+        return classeService.getClasseById(id)
+                .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
@@ -42,13 +42,16 @@ public class ClasseController {
         return ResponseEntity.ok(dtos);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ClasseDTO> update(
-            @PathVariable Long id, @RequestBody ClasseDTO updatedDTO) {
-        Optional<ClasseDTO> updated = classeService.update(id, updatedDTO);
-        return updated.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
-    }
+//    @PutMapping("/{id}")
+//    public ResponseEntity<ClasseDTO> update(
+//            @PathVariable Long id, @RequestBody ClasseDTO updatedDTO) {
+//        try {
+//            ClasseDTO updated = classeService.update(id, updatedDTO);
+//            return ResponseEntity.ok(updated);
+//        } catch (ClasseNotFoundException ex) {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {

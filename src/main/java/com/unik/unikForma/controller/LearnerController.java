@@ -1,6 +1,8 @@
 package com.unik.unikForma.controller;
 
+import com.unik.unikForma.dto.InstructorDTO;
 import com.unik.unikForma.dto.LearnerDTO;
+import com.unik.unikForma.exception.LearnerNotFoundException; // Ensure this is imported if needed
 import com.unik.unikForma.service.LearnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,8 +29,9 @@ public class LearnerController {
     }
 
     @GetMapping
-    public List<LearnerDTO> getAllLearners() {
-        return learnerService.getAllLearners();
+    public ResponseEntity<List<LearnerDTO>> getAllLearners() {
+        List<LearnerDTO> learners = learnerService.getAllLearners();
+        return ResponseEntity.ok(learners);
     }
 
     @GetMapping("/{id}")
@@ -40,7 +43,11 @@ public class LearnerController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteLearner(@PathVariable Long id) {
-        learnerService.deleteLearner(id);
-        return ResponseEntity.noContent().build();
+        try {
+            learnerService.deleteLearner(id);
+            return ResponseEntity.noContent().build();
+        } catch (LearnerNotFoundException ex) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

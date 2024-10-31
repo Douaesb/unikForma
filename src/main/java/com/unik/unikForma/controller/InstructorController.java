@@ -21,7 +21,6 @@ public class InstructorController {
 
     @PostMapping
     public ResponseEntity<InstructorDTO> createInstructor(@RequestBody InstructorDTO instructorDTO) {
-        // Use the service to save the instructor and return the DTO
         InstructorDTO savedInstructorDTO = instructorService.saveInstructor(instructorDTO);
         return ResponseEntity.ok(savedInstructorDTO);
     }

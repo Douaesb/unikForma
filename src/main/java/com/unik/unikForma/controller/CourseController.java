@@ -48,10 +48,10 @@ public class CourseController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<CourseDTO> update(
-            @PathVariable Long id, @Valid @RequestBody CourseDTO updatedCourseDTO) {
-        CourseDTO updatedCourse = courseService.updateCourse(id, updatedCourseDTO);
-        return ResponseEntity.ok(updatedCourse);
-    }
+//    @PutMapping("/{id}")
+//    public ResponseEntity<CourseDTO> update(
+//            @PathVariable Long id, @Valid @RequestBody CourseDTO updatedCourseDTO) {
+//        CourseDTO updatedCourse = courseService.updateCourse(id, updatedCourseDTO);
+//        return ResponseEntity.ok(updatedCourse);
+//    }
 }
