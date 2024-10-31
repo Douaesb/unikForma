@@ -6,6 +6,8 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -44,4 +46,7 @@ public class Course {
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Status is required")
     private CourseStatus status;
+
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+    private Set<User> users = new HashSet<>();
 }
