@@ -4,6 +4,7 @@ import com.unik.unikForma.dto.InstructorDTO;
 import com.unik.unikForma.entity.Instructor;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.springframework.stereotype.Component;
 
 @Mapper(componentModel = "spring")
@@ -17,4 +18,6 @@ public interface InstructorMapper {
     @Mapping(target = "classeId", source = "classe.id")
     InstructorDTO toDTO(Instructor instructor);
 
+    @Mapping(target = "id", ignore = true)
+    void updateEntityFromDTO(InstructorDTO dto, @MappingTarget Instructor entity);
 }

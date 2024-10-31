@@ -48,4 +48,13 @@ public class InstructorService {
         }
         instructorRepository.deleteById(id);
     }
+
+    public InstructorDTO updateInstructor(Long id, InstructorDTO updatedInstructorDTO) {
+        Instructor existingInstructor = instructorRepository.findById(id)
+                .orElseThrow(() -> new InstructorNotFoundException(id));
+        instructorMapper.updateEntityFromDTO(updatedInstructorDTO, existingInstructor);
+        Instructor updatedInstructor = instructorRepository.save(existingInstructor);
+        return instructorMapper.toDTO(updatedInstructor);
+    }
+
 }
