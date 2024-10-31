@@ -1,6 +1,6 @@
 package com.unik.unikForma.controller;
 
-import com.unik.unikForma.entity.Classe;
+import com.unik.unikForma.dto.ClasseDTO;
 import com.unik.unikForma.service.ClasseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,30 +22,30 @@ public class ClasseController {
     }
 
     @PostMapping
-    public ResponseEntity<Classe> create(@RequestBody Classe entity) {
-        Classe createdEntity = classeService.saveClasse(entity);
+    public ResponseEntity<ClasseDTO> create(@RequestBody ClasseDTO dto) {
+        ClasseDTO createdEntity = classeService.saveClasse(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdEntity);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Classe> getById(@PathVariable Long id) {
-        Optional<Classe> entity = classeService.getClasseById(id);
-        return entity.map(ResponseEntity::ok)
+    public ResponseEntity<ClasseDTO> getById(@PathVariable Long id) {
+        Optional<ClasseDTO> dto = classeService.getClasseById(id);
+        return dto.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping
-    public ResponseEntity<Page<Classe>> getAll(
+    public ResponseEntity<Page<ClasseDTO>> getAll(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
-        Page<Classe> entities = classeService.findAll(page, size);
-        return ResponseEntity.ok(entities);
+        Page<ClasseDTO> dtos = classeService.findAll(page, size);
+        return ResponseEntity.ok(dtos);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Classe> update(
-            @PathVariable Long id, @RequestBody Classe updatedEntity) {
-        Optional<Classe> updated = classeService.update(id, updatedEntity);
+    public ResponseEntity<ClasseDTO> update(
+            @PathVariable Long id, @RequestBody ClasseDTO updatedDTO) {
+        Optional<ClasseDTO> updated = classeService.update(id, updatedDTO);
         return updated.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
