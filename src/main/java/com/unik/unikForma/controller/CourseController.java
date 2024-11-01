@@ -1,14 +1,18 @@
 package com.unik.unikForma.controller;
 
-import com.unik.unikForma.dto.CourseDTO; // Import the CourseDTO
+import com.unik.unikForma.dto.CourseDTO;
 import com.unik.unikForma.service.CourseService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/courses")
@@ -21,54 +25,96 @@ public class CourseController {
         this.courseService = courseService;
     }
 
-    // Adjusted to use CourseDTO
     @PostMapping
-    public ResponseEntity<CourseDTO> createCourse(@Valid @RequestBody CourseDTO courseDTO) {
+    @Operation(summary = "Create a new course")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Course created successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid course data")
+    })
+    public ResponseEntity<CourseDTO> createCourse(
+            @Parameter(description = "Course details for creation", required = true) @Valid @RequestBody CourseDTO courseDTO) {
         CourseDTO savedCourse = courseService.saveCourse(courseDTO);
         return ResponseEntity.ok(savedCourse);
     }
 
-    // Adjusted to return List of CourseDTO
     @GetMapping
+    @Operation(summary = "Retrieve all courses")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Courses retrieved successfully")
+    })
     public ResponseEntity<List<CourseDTO>> getAllCourses() {
         List<CourseDTO> courses = courseService.getAllCourses();
         return ResponseEntity.ok(courses);
     }
 
-    // Adjusted to return CourseDTO
     @GetMapping("/{id}")
-    public ResponseEntity<CourseDTO> getCourseById(@PathVariable Long id) {
+    @Operation(summary = "Get course by ID")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Course retrieved successfully"),
+            @ApiResponse(responseCode = "404", description = "Course not found")
+    })
+    public ResponseEntity<CourseDTO> getCourseById(
+            @Parameter(description = "ID of the course to retrieve", required = true) @PathVariable Long id) {
         CourseDTO course = courseService.getCourseById(id);
         return ResponseEntity.ok(course);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCourse(@PathVariable Long id) {
+    @Operation(summary = "Delete a course by ID")
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "Course deleted successfully"),
+            @ApiResponse(responseCode = "404", description = "Course not found")
+    })
+    public ResponseEntity<Void> deleteCourse(
+            @Parameter(description = "ID of the course to delete", required = true) @PathVariable Long id) {
         courseService.deleteCourse(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Update a course by ID")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Course updated successfully"),
+            @ApiResponse(responseCode = "404", description = "Course not found"),
+            @ApiResponse(responseCode = "400", description = "Invalid course data")
+    })
     public ResponseEntity<CourseDTO> updateCourse(
-            @PathVariable Long id, @Valid @RequestBody CourseDTO updatedCourseDTO) {
+            @Parameter(description = "ID of the course to update", required = true) @PathVariable Long id,
+            @Parameter(description = "Updated course details", required = true) @Valid @RequestBody CourseDTO updatedCourseDTO) {
         CourseDTO updatedCourse = courseService.updateCourse(id, updatedCourseDTO);
         return ResponseEntity.ok(updatedCourse);
     }
 
     @GetMapping("/search/title")
-    public ResponseEntity<List<CourseDTO>> getCoursesByTitle(@RequestParam String title) {
+    @Operation(summary = "Search courses by title")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Courses retrieved successfully")
+    })
+    public ResponseEntity<List<CourseDTO>> getCoursesByTitle(
+            @Parameter(description = "Title of the course to search for", required = true) @RequestParam String title) {
         List<CourseDTO> courses = courseService.getCoursesByTitle(title);
         return ResponseEntity.ok(courses);
     }
 
     @GetMapping("/search/status")
-    public ResponseEntity<List<CourseDTO>> getCoursesByStatus(@RequestParam String status) {
+    @Operation(summary = "Search courses by status")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Courses retrieved successfully")
+    })
+    public ResponseEntity<List<CourseDTO>> getCoursesByStatus(
+            @Parameter(description = "Status of the course to search for", required = true) @RequestParam String status) {
         List<CourseDTO> courses = courseService.getCoursesByStatus(status);
         return ResponseEntity.ok(courses);
     }
 
     @GetMapping("/search/titleAndLevel")
-    public ResponseEntity<List<CourseDTO>> getCoursesByTitleAndLevel(@RequestParam String title, @RequestParam String level) {
+    @Operation(summary = "Search courses by title and level")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Courses retrieved successfully")
+    })
+    public ResponseEntity<List<CourseDTO>> getCoursesByTitleAndLevel(
+            @Parameter(description = "Title of the course to search for", required = true) @RequestParam String title,
+            @Parameter(description = "Level of the course to search for", required = true) @RequestParam String level) {
         List<CourseDTO> courses = courseService.getCoursesByTitleAndLevel(title, level);
         return ResponseEntity.ok(courses);
     }
