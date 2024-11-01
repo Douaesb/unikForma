@@ -8,11 +8,14 @@ import com.unik.unikForma.mapper.CourseMapper; // Import the CourseMapper
 import com.unik.unikForma.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Validated
 public class CourseService {
 
     private final CourseRepository courseRepository;
@@ -24,7 +27,7 @@ public class CourseService {
         this.courseMapper = courseMapper;
     }
 
-    public CourseDTO saveCourse(CourseDTO courseDTO) {
+    public CourseDTO saveCourse(@Valid CourseDTO courseDTO) {
         Course course = courseMapper.toEntity(courseDTO);
         Course savedCourse = courseRepository.save(course);
         return courseMapper.toDTO(savedCourse);
@@ -50,7 +53,7 @@ public class CourseService {
         courseRepository.deleteById(id);
     }
 
-    public CourseDTO updateCourse(Long id, CourseDTO updatedCourseDTO) {
+    public CourseDTO updateCourse(Long id, @Valid CourseDTO updatedCourseDTO) {
         Course existingCourse = courseRepository.findById(id)
                 .orElseThrow(() -> new CourseNotFoundException(id));
         courseMapper.updateEntityFromDTO(updatedCourseDTO, existingCourse);
@@ -66,12 +69,17 @@ public class CourseService {
     }
 
     public List<CourseDTO> getCoursesByStatus(String status) {
-        CourseStatus courseStatus = CourseStatus.valueOf(status);
-        return courseRepository.findByStatus(courseStatus)
-                .stream()
-                .map(courseMapper::toDTO)
-                .collect(Collectors.toList());
+        try {
+            CourseStatus courseStatus = CourseStatus.valueOf(status.toUpperCase());
+            return courseRepository.findByStatus(courseStatus)
+                    .stream()
+                    .map(courseMapper::toDTO)
+                    .collect(Collectors.toList());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Invalid course status: " + status);
+        }
     }
+
 
     public List<CourseDTO> getCoursesByTitleAndLevel(String title, String level) {
         return courseRepository.findByTitleAndLevel(title, level).stream()

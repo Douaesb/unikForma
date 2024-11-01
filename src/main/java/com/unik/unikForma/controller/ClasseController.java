@@ -23,7 +23,7 @@ public class ClasseController {
     }
 
     @PostMapping
-    public ResponseEntity<ClasseDTO> create(@RequestBody ClasseDTO dto) {
+    public ResponseEntity<ClasseDTO> create(@Valid @RequestBody ClasseDTO dto) {
         ClasseDTO createdEntity = classeService.saveClasse(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdEntity);
     }

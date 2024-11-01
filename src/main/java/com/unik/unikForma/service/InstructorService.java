@@ -11,8 +11,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import com.unik.unikForma.mapper.InstructorMapper;
+import org.springframework.validation.annotation.Validated;
+
+import javax.validation.Valid;
 
 @Service
+@Validated
 public class InstructorService {
 
     private final InstructorRepository instructorRepository;
@@ -24,9 +28,8 @@ public class InstructorService {
         this.instructorMapper = instructorMapper;
     }
 
-    public InstructorDTO saveInstructor(InstructorDTO instructorDTO) {
+    public InstructorDTO saveInstructor(@Valid InstructorDTO instructorDTO) {
         Instructor instructor = instructorMapper.toEntity(instructorDTO);
-
         Instructor savedInstructor = instructorRepository.save(instructor);
         return instructorMapper.toDTO(savedInstructor);
     }
@@ -37,9 +40,10 @@ public class InstructorService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<InstructorDTO> getInstructorById(Long id) {
-        return instructorRepository.findById(id)
-                .map(instructorMapper::toDTO);
+    public InstructorDTO getInstructorById(Long id) {
+        Instructor instructor = instructorRepository.findById(id)
+                .orElseThrow(() -> new InstructorNotFoundException(id));
+        return instructorMapper.toDTO(instructor);
     }
 
     public void deleteInstructor(Long id) {
@@ -49,12 +53,11 @@ public class InstructorService {
         instructorRepository.deleteById(id);
     }
 
-    public InstructorDTO updateInstructor(Long id, InstructorDTO updatedInstructorDTO) {
+    public InstructorDTO updateInstructor(Long id, @Valid InstructorDTO updatedInstructorDTO) {
         Instructor existingInstructor = instructorRepository.findById(id)
                 .orElseThrow(() -> new InstructorNotFoundException(id));
         instructorMapper.updateEntityFromDTO(updatedInstructorDTO, existingInstructor);
         Instructor updatedInstructor = instructorRepository.save(existingInstructor);
         return instructorMapper.toDTO(updatedInstructor);
     }
-
 }

@@ -7,12 +7,14 @@ import com.unik.unikForma.mapper.LearnerMapper;
 import com.unik.unikForma.repository.LearnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Validated
 public class LearnerService {
 
     private final LearnerRepository learnerRepository;
@@ -24,8 +26,7 @@ public class LearnerService {
         this.learnerMapper = learnerMapper;
     }
 
-    public LearnerDTO saveLearner(LearnerDTO learnerDTO) {
-
+    public LearnerDTO saveLearner(@Valid LearnerDTO learnerDTO) {
         Learner learner = learnerMapper.toEntity(learnerDTO);
         Learner savedLearner = learnerRepository.save(learner);
         return learnerMapper.toDTO(savedLearner);
@@ -37,9 +38,10 @@ public class LearnerService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<LearnerDTO> getLearnerById(Long id) {
-        return learnerRepository.findById(id)
-                .map(learnerMapper::toDTO);
+    public LearnerDTO getLearnerById(Long id) {
+        Learner learner = learnerRepository.findById(id)
+                .orElseThrow(() -> new LearnerNotFoundException(id));
+        return learnerMapper.toDTO(learner);
     }
 
     public void deleteLearner(Long id) {
@@ -49,7 +51,7 @@ public class LearnerService {
         learnerRepository.deleteById(id);
     }
 
-    public LearnerDTO updateLearner(Long id, LearnerDTO updatedLearnerDTO) {
+    public LearnerDTO updateLearner(Long id, @Valid LearnerDTO updatedLearnerDTO) {
         Learner existingLearner = learnerRepository.findById(id)
                 .orElseThrow(() -> new LearnerNotFoundException(id));
         learnerMapper.updateEntityFromDTO(updatedLearnerDTO, existingLearner);
