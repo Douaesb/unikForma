@@ -38,6 +38,7 @@ public class LearnerService {
                 .collect(Collectors.toList());
     }
 
+
     public LearnerDTO getLearnerById(Long id) {
         Learner learner = learnerRepository.findById(id)
                 .orElseThrow(() -> new LearnerNotFoundException(id));

@@ -46,6 +46,7 @@ public class InstructorService {
         return instructorMapper.toDTO(instructor);
     }
 
+
     public void deleteInstructor(Long id) {
         if (!instructorRepository.existsById(id)) {
             throw new InstructorNotFoundException(id);

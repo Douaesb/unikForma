@@ -33,10 +33,10 @@ public class InstructorController {
 
     @GetMapping("/{id}")
     public ResponseEntity<InstructorDTO> getInstructorById(@PathVariable Long id) {
-        return instructorService.getInstructorById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        InstructorDTO instructorDTO = instructorService.getInstructorById(id);
+        return ResponseEntity.ok(instructorDTO);
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteInstructor(@PathVariable Long id) {

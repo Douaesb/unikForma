@@ -34,11 +34,11 @@ public class LearnerController {
         return ResponseEntity.ok(learners);
     }
 
+
     @GetMapping("/{id}")
     public ResponseEntity<LearnerDTO> getLearnerById(@PathVariable Long id) {
-        return learnerService.getLearnerById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        LearnerDTO learnerDTO = learnerService.getLearnerById(id);
+        return ResponseEntity.ok(learnerDTO);
     }
 
     @DeleteMapping("/{id}")
